@@ -10,21 +10,7 @@ from nltk.tag.stanford import NERTagger
 from nltk.corpus import wordnet as wn
 from enum import Enum
 
-Month = Enum('Month', 'January February March April June July May August September October November Decemeber')
 
-class Month(Enum):
-    January 	= 1
-    February  	= 2
-    March 		= 3
-    April 		= 4
-    May 		= 5
-    June 		= 6
-    July  		= 7
-    August 		= 8
-    September 	= 9
-    October 	= 10
-    November 	= 11
-    Decemeber 	= 12
     
 import urllib2
 import json
@@ -32,63 +18,63 @@ import json
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
+def _wunderground(request):
+	f = urllib2.urlopen(request)
+	json_string = f.read()
+	parsed_json = json.loads(json_string)
+	#print parsed_json
 
-f = urllib2.urlopen('http://api.wunderground.com/api/4ab5a36ab8ce63df/history_19940625/q/CA/Santa_barbara.json')
-json_string = f.read()
-parsed_json = json.loads(json_string)
-#print parsed_json
-
-result = {}
-result['rain'] 					= parsed_json['history']['dailysummary'][0]['rain']
-result['snow'] 					= parsed_json['history']['dailysummary'][0]['snow']
-result['snowfallm'] 			= parsed_json['history']['dailysummary'][0]['snowfallm']
-result['snowfalli']				= parsed_json['history']['dailysummary'][0]['snowfalli']
-result['hail'] 					= parsed_json['history']['dailysummary'][0]['hail']
-result['thunder'] 				= parsed_json['history']['dailysummary'][0]['thunder']
-result['tornado'] 				= parsed_json['history']['dailysummary'][0]['tornado']
-result['meantempm'] 			= parsed_json['history']['dailysummary'][0]['meantempm']
-result['meantempi'] 			= parsed_json['history']['dailysummary'][0]['meantempi']
-result['meandewptm'] 			= parsed_json['history']['dailysummary'][0]['meandewptm']
-result['meandewpti'] 			= parsed_json['history']['dailysummary'][0]['meandewpti']
-result['meanpressurem'] 		= parsed_json['history']['dailysummary'][0]['meanpressurem']
-result['meanpressurei'] 		= parsed_json['history']['dailysummary'][0]['meanpressurei']
-result['meanwindspdm'] 			= parsed_json['history']['dailysummary'][0]['meanwindspdm']
-result['meanwindspdi'] 			= parsed_json['history']['dailysummary'][0]['meanwindspdi']
-result['meanwdire'] 			= parsed_json['history']['dailysummary'][0]['meanwdire']
-result['meanwdird'] 			= parsed_json['history']['dailysummary'][0]['meanwdird']
-result['meanvism'] 				= parsed_json['history']['dailysummary'][0]['meanvism']
-result['meanvisi'] 				= parsed_json['history']['dailysummary'][0]['meanvisi']
-result['humidity'] 				= parsed_json['history']['dailysummary'][0]['humidity']
-result['maxtempm'] 				= parsed_json['history']['dailysummary'][0]['maxtempm']
-result['maxtempi'] 				= parsed_json['history']['dailysummary'][0]['maxtempi']
-result['mintempm'] 				= parsed_json['history']['dailysummary'][0]['mintempm']
-result['mintempi'] 				= parsed_json['history']['dailysummary'][0]['mintempi']
-result['maxhumidity'] 			= parsed_json['history']['dailysummary'][0]['maxhumidity']
-result['minhumidity'] 			= parsed_json['history']['dailysummary'][0]['minhumidity']
-result['maxdewptm'] 			= parsed_json['history']['dailysummary'][0]['maxdewptm']
-result['maxdewpti'] 			= parsed_json['history']['dailysummary'][0]['maxdewpti']
-result['mindewptm'] 			= parsed_json['history']['dailysummary'][0]['mindewptm']
-result['mindewpti'] 			= parsed_json['history']['dailysummary'][0]['mindewpti']
-result['maxpressurem'] 			= parsed_json['history']['dailysummary'][0]['maxpressurem']
-result['maxpressurei'] 			= parsed_json['history']['dailysummary'][0]['maxpressurei']
-result['minpressurem'] 			= parsed_json['history']['dailysummary'][0]['minpressurem']
-result['minpressurei'] 			= parsed_json['history']['dailysummary'][0]['minpressurei']
-result['maxwspdm'] 				= parsed_json['history']['dailysummary'][0]['maxwspdm']
-result['maxwspdi'] 				= parsed_json['history']['dailysummary'][0]['maxwspdi']
-result['minwspdm'] 				= parsed_json['history']['dailysummary'][0]['minwspdm']
-result['minwspdi'] 				= parsed_json['history']['dailysummary'][0]['minwspdi']
-result['maxvism'] 				= parsed_json['history']['dailysummary'][0]['maxvism']
-result['maxvisi'] 				= parsed_json['history']['dailysummary'][0]['maxvisi']
-result['minvism'] 				= parsed_json['history']['dailysummary'][0]['minvism']
-result['minvisi'] 				= parsed_json['history']['dailysummary'][0]['minvisi']
-result['gdegreedays'] 			= parsed_json['history']['dailysummary'][0]['gdegreedays']
-result['heatingdegreedays'] 	= parsed_json['history']['dailysummary'][0]['heatingdegreedays']
-result['coolingdegreedays'] 	= parsed_json['history']['dailysummary'][0]['coolingdegreedays']
-result['precipm'] 				= parsed_json['history']['dailysummary'][0]['precipm']
-result['precipi']				= parsed_json['history']['dailysummary'][0]['precipi']
-result['default'] 				= 0
-print result
-print
+	result = {}
+	result['rain'] 					= parsed_json['history']['dailysummary'][0]['rain']
+	result['snow'] 					= parsed_json['history']['dailysummary'][0]['snow']
+	result['snowfallm'] 			= parsed_json['history']['dailysummary'][0]['snowfallm']
+	result['snowfalli']				= parsed_json['history']['dailysummary'][0]['snowfalli']
+	result['hail'] 					= parsed_json['history']['dailysummary'][0]['hail']
+	result['thunder'] 				= parsed_json['history']['dailysummary'][0]['thunder']
+	result['tornado'] 				= parsed_json['history']['dailysummary'][0]['tornado']
+	result['meantempm'] 			= parsed_json['history']['dailysummary'][0]['meantempm']
+	result['meantempi'] 			= parsed_json['history']['dailysummary'][0]['meantempi']
+	result['meandewptm'] 			= parsed_json['history']['dailysummary'][0]['meandewptm']
+	result['meandewpti'] 			= parsed_json['history']['dailysummary'][0]['meandewpti']
+	result['meanpressurem'] 		= parsed_json['history']['dailysummary'][0]['meanpressurem']
+	result['meanpressurei'] 		= parsed_json['history']['dailysummary'][0]['meanpressurei']
+	result['meanwindspdm'] 			= parsed_json['history']['dailysummary'][0]['meanwindspdm']
+	result['meanwindspdi'] 			= parsed_json['history']['dailysummary'][0]['meanwindspdi']
+	result['meanwdire'] 			= parsed_json['history']['dailysummary'][0]['meanwdire']
+	result['meanwdird'] 			= parsed_json['history']['dailysummary'][0]['meanwdird']
+	result['meanvism'] 				= parsed_json['history']['dailysummary'][0]['meanvism']
+	result['meanvisi'] 				= parsed_json['history']['dailysummary'][0]['meanvisi']
+	result['humidity'] 				= parsed_json['history']['dailysummary'][0]['humidity']
+	result['maxtempm'] 				= parsed_json['history']['dailysummary'][0]['maxtempm']
+	result['maxtempi'] 				= parsed_json['history']['dailysummary'][0]['maxtempi']
+	result['mintempm'] 				= parsed_json['history']['dailysummary'][0]['mintempm']
+	result['mintempi'] 				= parsed_json['history']['dailysummary'][0]['mintempi']
+	result['maxhumidity'] 			= parsed_json['history']['dailysummary'][0]['maxhumidity']
+	result['minhumidity'] 			= parsed_json['history']['dailysummary'][0]['minhumidity']
+	result['maxdewptm'] 			= parsed_json['history']['dailysummary'][0]['maxdewptm']
+	result['maxdewpti'] 			= parsed_json['history']['dailysummary'][0]['maxdewpti']
+	result['mindewptm'] 			= parsed_json['history']['dailysummary'][0]['mindewptm']
+	result['mindewpti'] 			= parsed_json['history']['dailysummary'][0]['mindewpti']
+	result['maxpressurem'] 			= parsed_json['history']['dailysummary'][0]['maxpressurem']
+	result['maxpressurei'] 			= parsed_json['history']['dailysummary'][0]['maxpressurei']
+	result['minpressurem'] 			= parsed_json['history']['dailysummary'][0]['minpressurem']
+	result['minpressurei'] 			= parsed_json['history']['dailysummary'][0]['minpressurei']
+	result['maxwspdm'] 				= parsed_json['history']['dailysummary'][0]['maxwspdm']
+	result['maxwspdi'] 				= parsed_json['history']['dailysummary'][0]['maxwspdi']
+	result['minwspdm'] 				= parsed_json['history']['dailysummary'][0]['minwspdm']
+	result['minwspdi'] 				= parsed_json['history']['dailysummary'][0]['minwspdi']
+	result['maxvism'] 				= parsed_json['history']['dailysummary'][0]['maxvism']
+	result['maxvisi'] 				= parsed_json['history']['dailysummary'][0]['maxvisi']
+	result['minvism'] 				= parsed_json['history']['dailysummary'][0]['minvism']
+	result['minvisi'] 				= parsed_json['history']['dailysummary'][0]['minvisi']
+	result['gdegreedays'] 			= parsed_json['history']['dailysummary'][0]['gdegreedays']
+	result['heatingdegreedays'] 	= parsed_json['history']['dailysummary'][0]['heatingdegreedays']
+	result['coolingdegreedays'] 	= parsed_json['history']['dailysummary'][0]['coolingdegreedays']
+	result['precipm'] 				= parsed_json['history']['dailysummary'][0]['precipm']
+	result['precipi']				= parsed_json['history']['dailysummary'][0]['precipi']
+	result['default'] 				= 0
+	print result
+	print
 
 #print "rain " 			   + rain 			
 #print "snow " 			   + snow 			
@@ -153,9 +139,9 @@ def factCheck(parameterMin="default", numberMin=0, parameterMax="default", numbe
 
 		print "False Fact Check"
 
-factCheck("mintempi",59, "maxtempi",81, "meantempi",68)
+#factCheck("mintempi",59, "maxtempi",81, "meantempi",68)
 #print 
-f.close()
+#f.close()
 
 def date_compare(sent1, sent2):
 	#include fuzzy with high barrier/ ways to include more words?
@@ -195,19 +181,52 @@ def _dateExtract(sent):
 	print
 	for i, item in enumerate(a):
 		if(a[i][1] == "DATE" and a[i][0] != ','):
-			#if(str(a[i][0]) == "June"):
-			#	stripDate[str(a[i][0])] = "dateMonth"
-			#elif(str(a[i][0]) == "25th"):
-			#	stripDate[str(a[i][0])] = "dateDay"
-			#elif(str(a[i][0]) == "1994"):
-			#	stripDate[str(a[i][0])] = "dateYear"
-			stripDate[str(a[i][0])] = "dateYear"
-
+			if(a[i][0].isalpha()):
+				stripDate["dateMonth"] = str(a[i][0])
+			elif(a[i][0].isdigit()):
+				if(int(a[i][0]) > 32):
+					stripDate["dateYear"] = str(a[i][0])
+				elif(int(a[i][0]) < 32):
+					stripDate["dateDay"] = str(a[i][0])
+			elif(a[i][0].endswith('th')):
+				string = a[i][0]
+				number = string[:-2]
+				stripDate["dateDay"] = number
+	print
 	print stripDate
 	_formDate(stripDate)
 
 def _formDate(date):
-	print "poop"
+	stringDate =  date['dateYear'] + _monthNumber(date['dateMonth']) + date['dateDay'] 
+	request = "http://api.wunderground.com/api/4ab5a36ab8ce63df/history_" + stringDate + "/q/CA/Santa_barbara.json"
+	_wunderground(request)
+def _monthNumber(month):
+	if(month.lower() == "january"):
+		return "01"
+	elif(month.lower() == "february"):
+		return "02"
+	elif(month.lower() == "march"):
+		return "03"
+	elif(month.lower() == "april"):
+		return "04"
+	elif(month.lower() == "may"):
+		return "05"
+	elif(month.lower() == "june"):
+		return "06"
+	elif(month.lower() == "july"):
+		return "07"
+	elif(month.lower() == "august"):
+		return "08"
+	elif(month.lower() == "september"):
+		return "09"
+	elif(month.lower() == "october"):
+		return "10"
+	elif(month.lower() == "november"):
+		return "11"
+	elif(month.lower() == "december"):
+		return "12"
+	
+	
 	#http://api.wunderground.com/api/4ab5a36ab8ce63df/history_19940625/q/CA/Santa_barbara.json
 
 #def stream(head, tail, *rest, **kwargs):
