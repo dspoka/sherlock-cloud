@@ -19,6 +19,7 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 
 def _wunderground(request):
+	print request
 	f = urllib2.urlopen(request)
 	json_string = f.read()
 	parsed_json = json.loads(json_string)
@@ -242,7 +243,7 @@ def _monthNumber(month):
 st = NERTagger('/Users/dspoka/Desktop/Afact/NLP/stanford-ner/classifiers/english.muc.7class.distsim.crf.ser.gz',
 		'/Users/dspoka/Desktop/Afact/NLP/stanford-ner/stanford-ner-3.4.1.jar') 
 
-_dateExtract("I fucked a girl named May who was born on June 25th, 1994")
+_dateExtract("I fucked a girl named May and it was really hot who was born on June 25th, 1994")
 
 
 
