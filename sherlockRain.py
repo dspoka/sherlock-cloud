@@ -20,8 +20,15 @@ def _getCityData():
 	cities = ["San_Francisco", "Seattle", "New_York"]
 	for city in cities:
 		city_date_data[city] = {}
-	dates = ["20060405"]
+	april = "200604"
+	dates = []
+	for i in range(1,30):
+		if(i <= 9):
+			dates.append(april + "0" + str(i))
+		else:
+			dates.append(april + str(i))
 	#for
+	print dates
 	request = ""
 	for city in cities:
 		for date in dates:
